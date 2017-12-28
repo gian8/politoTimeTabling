@@ -9,8 +9,9 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,8 +25,7 @@ public class DataProviderHelper {
      * @return
      */
     public static Map<Integer,Integer> getExams(){
-        Map<Integer,Integer> exams;
-        exams = new HashMap<>();
+        Map<Integer,Integer> exams = new HashMap<>();
         
         try{
             FileInputStream fstream = new FileInputStream("C:\\Users\\gianluca.mangiapelo\\Desktop\\DESK\\Polito\\Optimization methods and Algorithms\\Assignee\\polito-timetabling\\politoTimeTabling\\polito-timeTabling\\assets\\istanze\\instance03.exm");
@@ -44,7 +44,7 @@ public class DataProviderHelper {
                 br.close();
             }
             
-            /**** Only for control ****/
+            /**** Only for control ****
             exams.keySet().forEach((key) -> {
                 System.out.println(key + " " + exams.get(key));
             });
@@ -60,8 +60,7 @@ public class DataProviderHelper {
     }
     
     public static Map<String,Integer> getStudents(){
-        Map<String,Integer> student;
-        student = new HashMap<>();
+        Map<String,Integer> student = new HashMap<>();
         
         try{
             FileInputStream fstream = new FileInputStream("C:\\Users\\gianluca.mangiapelo\\Desktop\\DESK\\Polito\\Optimization methods and Algorithms\\Assignee\\polito-timetabling\\politoTimeTabling\\polito-timeTabling\\assets\\istanze\\instance03.stu");
@@ -80,7 +79,7 @@ public class DataProviderHelper {
                 br.close();
             }
             
-            /**** Only for control ****/
+            /**** Only for control ****
             student.keySet().forEach((key) -> {
                 System.out.println(key + " " + student.get(key));
             });
@@ -110,7 +109,7 @@ public class DataProviderHelper {
                 br.close();
             }
             
-            /**** Only for control ****/
+            /**** Only for control ****
             System.out.println(timeslot);
             /**************************/
         }
@@ -119,6 +118,32 @@ public class DataProviderHelper {
         }
     
         return timeslot;
+    }
+    
+    public static Map<Integer,List<String>> getAll(){  
+     Map<Integer,List<String>> dataComplete = new HashMap<>();
+     Map<Integer,Integer> exams = null;
+     Map<String,Integer> students = null;
+     
+     exams = DataProviderHelper.getExams();
+     students = DataProviderHelper.getStudents();
+     
+     for(Integer exam: exams.keySet()){
+        List<String> studentEn = new ArrayList<>();
+        
+        for(String student: students.keySet()){
+            int idExamFromStudent = students.get(student);
+            int idExamsFromExams = exam;
+            if(idExamFromStudent == idExamsFromExams){
+                studentEn.add(student);
+            }
+        }
+        
+            dataComplete.put(exam,studentEn);
+        
+     }
+     
+     return dataComplete;
     }
     
     
