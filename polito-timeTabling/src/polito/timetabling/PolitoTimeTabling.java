@@ -16,6 +16,9 @@ public class PolitoTimeTabling {
      */
     public static void main(String[] args) {
         System.out.println("Polito Time Tabling First commit");
+        DataProviderHelper.getExams();
+        DataProviderHelper.getStudents();
+        DataProviderHelper.getTimeslot();
     }
     
 }
