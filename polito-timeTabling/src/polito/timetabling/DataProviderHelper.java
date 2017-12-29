@@ -59,22 +59,39 @@ public class DataProviderHelper {
         return exams;
     }
     
-    public static Map<String,Integer> getStudents(){
-        Map<String,Integer> student = new HashMap<>();
+    public static Map<String,List<Integer>> getStudents(){
+        Map<String,List<Integer>> student = new HashMap<>();
         
         try{
             FileInputStream fstream = new FileInputStream("C:\\Users\\gianluca.mangiapelo\\Desktop\\DESK\\Polito\\Optimization methods and Algorithms\\Assignee\\polito-timetabling\\politoTimeTabling\\polito-timeTabling\\assets\\istanze\\instance03.stu");
             try (BufferedReader br = new BufferedReader(new InputStreamReader(fstream))) {
                 String strLine;
+                String oldKey = "";
+                int counter = 0;
+                List<Integer> examsList = new ArrayList<>();
                 
                 while ((strLine = br.readLine()) != null) {
                     String[] lineSplit = strLine.split(" ");
+                    if(counter == 0){
+                        oldKey = lineSplit[0];
+                        counter++;
+                    }
                     if(lineSplit.length < 2){
                         System.err.println("Warning: format file is changed"); //fix with exceptions
                     }
                     else{
-                        student.put(lineSplit[0],Integer.parseInt(lineSplit[1]));
+                        if(oldKey.equals(lineSplit[0])){
+                            //popolo la lista di esami;
+                            examsList.add(Integer.parseInt(lineSplit[1]));
+                            
+                        }
+                        else{
+                            student.put(oldKey,examsList);
+                            examsList = new ArrayList<>();;
+                            examsList.add(Integer.parseInt(lineSplit[1]));
+                        }
                     }
+                    oldKey = lineSplit[0];
                 }
                 br.close();
             }
@@ -123,7 +140,7 @@ public class DataProviderHelper {
     public static Map<Integer,List<String>> getAll(){  
      Map<Integer,List<String>> dataComplete = new HashMap<>();
      Map<Integer,Integer> exams = null;
-     Map<String,Integer> students = null;
+     Map<String,List<Integer>> students = null;
      
      exams = DataProviderHelper.getExams();
      students = DataProviderHelper.getStudents();
@@ -132,19 +149,18 @@ public class DataProviderHelper {
         List<String> studentEn = new ArrayList<>();
         
         for(String student: students.keySet()){
-            int idExamFromStudent = students.get(student);
+            List<Integer> idExamsListFromStudent = students.get(student);
             int idExamsFromExams = exam;
-            if(idExamFromStudent == idExamsFromExams){
-                studentEn.add(student);
-            }
+            for (Integer idExamFromStudent:idExamsListFromStudent )
+                if(idExamFromStudent == idExamsFromExams){
+                    studentEn.add(student);
+                }
         }
         
             dataComplete.put(exam,studentEn);
-        
      }
      
      return dataComplete;
     }
-    
-    
+
 }
