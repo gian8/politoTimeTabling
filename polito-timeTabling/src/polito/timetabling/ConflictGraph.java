@@ -34,24 +34,40 @@ import java.util.stream.Collectors;
 public final class ConflictGraph {
     private final Graph graph;
     private final Map<Integer,List<String>> data;
+    private HashMap<Integer, ArrayList<Conflict>> mapConflict;
     
     public ConflictGraph(Map<Integer,List<String>> data){
-        this.graph = new SingleGraph("Tutorial 1");
+        this.graph = new SingleGraph("Conflict graph");
         this.data = data;
         for(int exam:data.keySet()){
             Node n = graph.addNode(Integer.toString(exam));
         }
-        this.calculateNumberConflict(this.calculateConflict());
-        this.displayConflictGraph();
+        this.mapConflict = this.calculateNumberConflict(this.calculateConflict());
+        
+       this.setEdges();
+       this.displayConflictGraph();
+       this.getEdgeWeight();
     }
     
     public void displayConflictGraph(){
         this.graph.display();
     }
     
-    public void setEdges(){
-        
+    private void setEdges(){
+        for(int key:this.mapConflict.keySet()){
+            for(Conflict conf: this.mapConflict.get(key)){
+                Edge e = this.graph.addEdge(Integer.toString(key)+"-"+Integer.toString(conf.getExam()), Integer.toString(key), Integer.toString(conf.getExam()));
+                e.setAttribute("weight", conf.getNumberConflict());
+            }
+        }
     }
+    
+    private void getEdgeWeight(){
+        for(Edge e:this.graph.getEachEdge()) {
+            System.out.println("Edge: "+e.getId()+", Conflict number: "+e.getAttribute("weight") );
+        }
+    }
+    
     
     /*
     Return an hash Map with the conflict focusing from-to which exam 
@@ -81,7 +97,7 @@ public final class ConflictGraph {
     return t -> seen.add(keyExtractor.apply(t));
 }
    
-    public void calculateNumberConflict(HashMap<Integer, ArrayList<Conflict>> map){
+    public HashMap<Integer, ArrayList<Conflict>> calculateNumberConflict(HashMap<Integer, ArrayList<Conflict>> map){
         HashMap<Integer, ArrayList<Conflict>> mapNumber = new HashMap<>();
         
         for(Integer key: map.keySet()){
@@ -100,7 +116,8 @@ public final class ConflictGraph {
                 mapNumber.put(key, listConf);
             }
         }
-    
+        
+    return mapNumber;
     }
 
  private int occurency(ArrayList<Conflict> conflictList,Conflict conf){

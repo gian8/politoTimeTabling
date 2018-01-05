@@ -18,8 +18,6 @@ package polito.timetabling;
 
 import java.util.List;
 import java.util.Map;
-import org.graphstream.graph.*;
-import org.graphstream.graph.implementations.*;
 
 /**
  *
@@ -34,28 +32,8 @@ public class PolitoTimeTabling {
         
         Map<Integer,List<String>> data = DataProviderHelper.getAll();
         int timeSlot = DataProviderHelper.getTimeslot();
-        
         ConflictGraph gr = new ConflictGraph(data);
         
-        /*Graph graph = new SingleGraph("Tutorial 1");
-
-		graph.addNode("A");
-		graph.addNode("B");
-		graph.addNode("C");
-		graph.addEdge("AB", "A", "B");
-		graph.addEdge("BC", "B", "C");
-		graph.addEdge("CA", "C", "A");
-
-		graph.display();*/
-        
-        // Only for Test
-        /*for(int exam: data.keySet()){
-            System.out.println(exam + " ********************** " + data.get(exam).size());
-            for(String student: data.get(exam)){
-                System.out.println(student);
-            }
-            System.out.println("**********************");
-        } */ 
     }
     
 }
