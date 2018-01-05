@@ -50,15 +50,7 @@ public final class ConflictGraph {
     }
     
     public void setEdges(){
-        /*int r = 0;
-        String res = "";
-        List<Integer> conflictList = new LinkedList<>();
-        for(int exam: data.keySet()){
-            for(String student: data.get(exam)){
-             conflictList = this.checkConflict(student,exam);
-            } 
-            System.out.println("conflitt1 per l'esame "+ exam +" è:"+ res);
-        }*/
+        
     }
     
     /*
