@@ -18,8 +18,10 @@ package polito.timetabling;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +41,7 @@ public class DataProviderHelper {
         Map<Integer,Integer> exams = new HashMap<>();
         
         try{
-            FileInputStream fstream = new FileInputStream("C:\\Users\\gianluca.mangiapelo\\Desktop\\DESK\\Polito\\Optimization methods and Algorithms\\Assignee\\polito-timetabling\\politoTimeTabling\\polito-timeTabling\\assets\\istanze\\instance03.exm");
+            FileInputStream fstream = new FileInputStream("C:\\Users\\gianluca.mangiapelo\\Desktop\\DESK\\Polito\\Optimization methods and Algorithms\\Assignee\\polito-timetabling\\politoTimeTabling\\polito-timeTabling\\assets\\test\\instance03.exm");
             try (BufferedReader br = new BufferedReader(new InputStreamReader(fstream))) {
                 String strLine;
                 
@@ -74,7 +76,7 @@ public class DataProviderHelper {
         Map<String,List<Integer>> student = new HashMap<>();
         
         try{
-            FileInputStream fstream = new FileInputStream("C:\\Users\\gianluca.mangiapelo\\Desktop\\DESK\\Polito\\Optimization methods and Algorithms\\Assignee\\polito-timetabling\\politoTimeTabling\\polito-timeTabling\\assets\\istanze\\instance03.stu");
+            FileInputStream fstream = new FileInputStream("C:\\Users\\gianluca.mangiapelo\\Desktop\\DESK\\Polito\\Optimization methods and Algorithms\\Assignee\\polito-timetabling\\politoTimeTabling\\polito-timeTabling\\assets\\test\\instance03.stu");
             try (BufferedReader br = new BufferedReader(new InputStreamReader(fstream))) {
                 String strLine;
                 String oldKey = "";
@@ -103,8 +105,10 @@ public class DataProviderHelper {
                         }
                     }
                     oldKey = lineSplit[0];
+                    counter++;
                 }
                 br.close();
+                student.put(oldKey,examsList); //for the last line
             }
             
             /**** Only for control ****
@@ -127,7 +131,7 @@ public class DataProviderHelper {
         int timeslot = 0;
         
         try{
-            FileInputStream fstream = new FileInputStream("C:\\Users\\gianluca.mangiapelo\\Desktop\\DESK\\Polito\\Optimization methods and Algorithms\\Assignee\\polito-timetabling\\politoTimeTabling\\polito-timeTabling\\assets\\istanze\\instance03.slo");
+            FileInputStream fstream = new FileInputStream("C:\\Users\\gianluca.mangiapelo\\Desktop\\DESK\\Polito\\Optimization methods and Algorithms\\Assignee\\polito-timetabling\\politoTimeTabling\\polito-timeTabling\\assets\\test\\instance03.slo");
             try (BufferedReader br = new BufferedReader(new InputStreamReader(fstream))) {
                 String strLine;
                 
