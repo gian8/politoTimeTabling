@@ -17,6 +17,7 @@
 package polito.timetabling;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 import java.util.List;
@@ -40,7 +41,7 @@ public final class ConflictGraph {
         this.graph = new SingleGraph("Conflict graph");
         this.data = data;
         for(int exam:data.keySet()){
-            Node n = graph.addNode(Integer.toString(exam));
+            graph.addNode(Integer.toString(exam));
         }
         this.mapConflict = this.calculateNumberConflict(this.calculateConflict());
         
@@ -62,10 +63,13 @@ public final class ConflictGraph {
         }
     }
     
-    private void getEdgeWeight(){
+    public List<Edge> getEdgeWeight(){
+        List<Edge> edge = new LinkedList<>();
         for(Edge e:this.graph.getEachEdge()) {
             System.out.println("Edge: "+e.getId()+", Conflict number: "+e.getAttribute("weight") );
+            edge.add(e);
         }
+        return edge;
     }
     
     
@@ -93,9 +97,9 @@ public final class ConflictGraph {
     }
     
     public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
-    Set<Object> seen = ConcurrentHashMap.newKeySet();
-    return t -> seen.add(keyExtractor.apply(t));
-}
+        Set<Object> seen = ConcurrentHashMap.newKeySet();
+        return t -> seen.add(keyExtractor.apply(t));
+    }
    
     public HashMap<Integer, ArrayList<Conflict>> calculateNumberConflict(HashMap<Integer, ArrayList<Conflict>> map){
         HashMap<Integer, ArrayList<Conflict>> mapNumber = new HashMap<>();

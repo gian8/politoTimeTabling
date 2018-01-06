@@ -35,11 +35,11 @@ public class DataProviderHelper {
      *
      * @return
      */
-    public static Map<Integer,Integer> getExams(){
+    public static Map<Integer,Integer> getExamsWithWeight(){
         Map<Integer,Integer> exams = new HashMap<>();
         
         try{
-            FileInputStream fstream = new FileInputStream("C:\\Users\\gianluca.mangiapelo\\Desktop\\DESK\\Polito\\Optimization methods and Algorithms\\Assignee\\polito-timetabling\\politoTimeTabling\\polito-timeTabling\\assets\\istanze\\instance03.exm");
+            FileInputStream fstream = new FileInputStream("C:\\Users\\gianluca.mangiapelo\\Desktop\\DESK\\Polito\\Optimization methods and Algorithms\\Assignee\\polito-timetabling\\politoTimeTabling\\polito-timeTabling\\assets\\test\\instance03.exm");
             try (BufferedReader br = new BufferedReader(new InputStreamReader(fstream))) {
                 String strLine;
                 
@@ -63,11 +63,19 @@ public class DataProviderHelper {
         return exams;
     }
     
+    public static List<Integer> getExams(Map<Integer,Integer> examsWithWeight){
+        List<Integer> listExams = new ArrayList<>();
+        for(int exam : examsWithWeight.keySet() ){
+            listExams.add(exam);
+        }
+        return listExams;
+    }
+    
     public static Map<String,List<Integer>> getStudents(){
         Map<String,List<Integer>> student = new HashMap<>();
         
         try{
-            FileInputStream fstream = new FileInputStream("C:\\Users\\gianluca.mangiapelo\\Desktop\\DESK\\Polito\\Optimization methods and Algorithms\\Assignee\\polito-timetabling\\politoTimeTabling\\polito-timeTabling\\assets\\istanze\\instance03.stu");
+            FileInputStream fstream = new FileInputStream("C:\\Users\\gianluca.mangiapelo\\Desktop\\DESK\\Polito\\Optimization methods and Algorithms\\Assignee\\polito-timetabling\\politoTimeTabling\\polito-timeTabling\\assets\\test\\instance03.stu");
             try (BufferedReader br = new BufferedReader(new InputStreamReader(fstream))) {
                 String strLine;
                 String oldKey = "";
@@ -110,12 +118,17 @@ public class DataProviderHelper {
         return student;
     }
     
+    public static int getTotalNumberStudent(){
+        Map<String,List<Integer>> student = DataProviderHelper.getStudents();
+        return student.size();
+    }
+    
     public static int getTimeslot(){
     
         int timeslot = 0;
         
         try{
-            FileInputStream fstream = new FileInputStream("C:\\Users\\gianluca.mangiapelo\\Desktop\\DESK\\Polito\\Optimization methods and Algorithms\\Assignee\\polito-timetabling\\politoTimeTabling\\polito-timeTabling\\assets\\istanze\\instance03.slo");
+            FileInputStream fstream = new FileInputStream("C:\\Users\\gianluca.mangiapelo\\Desktop\\DESK\\Polito\\Optimization methods and Algorithms\\Assignee\\polito-timetabling\\politoTimeTabling\\polito-timeTabling\\assets\\test\\instance03.slo");
             try (BufferedReader br = new BufferedReader(new InputStreamReader(fstream))) {
                 String strLine;
                 
@@ -137,7 +150,7 @@ public class DataProviderHelper {
      Map<Integer,Integer> exams = null;
      Map<String,List<Integer>> students = null;
      
-     exams = DataProviderHelper.getExams();
+     exams = DataProviderHelper.getExamsWithWeight();
      students = DataProviderHelper.getStudents();
      
      for(Integer exam: exams.keySet()){

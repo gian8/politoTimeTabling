@@ -32,7 +32,12 @@ public class PolitoTimeTabling {
         
         Map<Integer,List<String>> data = DataProviderHelper.getAll();
         int timeSlot = DataProviderHelper.getTimeslot();
+        
         ConflictGraph gr = new ConflictGraph(data);
+        Slot slot = new Slot(timeSlot, DataProviderHelper.getExams(DataProviderHelper.getExamsWithWeight()));
+        ObjFunction obj = new ObjFunction(gr, slot);
+        double objValue = obj.getObjFunctionValue();
+        System.out.println(objValue);
         
     }
     
