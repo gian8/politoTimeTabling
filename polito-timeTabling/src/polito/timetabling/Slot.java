@@ -39,7 +39,16 @@ public class Slot {
     private void setExamInSlot(){
         
         if(this.listExams.size()>this.maxTimeSlot){
-        
+            for(int i = 0; i < this.listExams.size(); i++){
+                //mi devo preparare le liste
+                if(i != this.listExams.size()-1){
+                    //ultima iterazione
+                }
+                List<Integer> listSingleExams = new ArrayList<>();
+                listSingleExams.add(listExams.get(i));
+                
+            }
+            //this.timeSlot.put(i, listSingleExams);
         }
         else{
             for(int i = 0; i < this.listExams.size(); i++){
