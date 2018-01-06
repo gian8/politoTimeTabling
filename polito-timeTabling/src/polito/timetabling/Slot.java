@@ -19,16 +19,15 @@ package polito.timetabling;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author gianluca.mangiapelo
  */
 public class Slot {
-    private HashMap<Integer,List<Integer>> timeSlot;
-    private int maxTimeSlot;
-    private List<Integer> listExams;
+    private final HashMap<Integer,List<Integer>> timeSlot;
+    private final int maxTimeSlot;
+    private final List<Integer> listExams;
     
     public Slot(int maxTimeSlot,List<Integer> listExams){
         this.listExams = listExams;
